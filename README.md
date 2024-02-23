@@ -3,6 +3,9 @@
 
 Congratulations, this is the first GEGL plugin I made with the intent to work with CMYK Student's outline only Gimp build.
 
+![image](https://github.com/LinuxBeaver/Outline-Deluxe-Gimp-Plugin/assets/78667207/aed42c67-9e59-4ceb-9bdb-22ddfc671f35)
+
+
 ## Location to put binaries (they don't go in the normal plugins folder)
 
 ### Windows
