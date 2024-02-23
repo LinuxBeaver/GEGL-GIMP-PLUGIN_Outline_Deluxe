@@ -3,7 +3,17 @@
 
 Congratulations, this is the first GEGL plugin I made with the intent to work with CMYK Student's outline only Gimp build.
 
+![image](https://github.com/LinuxBeaver/Outline-Deluxe-Gimp-Plugin/assets/78667207/bd7c761c-9847-44b0-a2ae-6609b15bbf37)
+
+
 ![image](https://github.com/LinuxBeaver/Outline-Deluxe-Gimp-Plugin/assets/78667207/aed42c67-9e59-4ceb-9bdb-22ddfc671f35)
+
+## Co-Dependencies of Outline Deluxe 
+This plugin ships with two other plugins of mine needed for it to work. Said plugins are 'SSG' and 'Custom Bevel'. Said plugins are both included in the source code and binaries. So there is no mistake that the user won't get them.
+
+![image](https://github.com/LinuxBeaver/Outline-Deluxe-Gimp-Plugin/assets/78667207/f0caea93-cb9c-46f7-a45a-45289f097c7d)
+![image](https://github.com/LinuxBeaver/Outline-Deluxe-Gimp-Plugin/assets/78667207/d6bb82a6-9fae-4cf9-a158-247d8c9a5e9a)
+
 
 
 ## Location to put binaries (they don't go in the normal plugins folder)
