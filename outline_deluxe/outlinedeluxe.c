@@ -257,14 +257,14 @@ switch (o->mode) {
         break;
     case OUTLINE_ORIGINAL_COLOR:
   gegl_node_link_many ( state->input, state->idref, state->white,   state->dst,  state->ssg,  state->multiply, state->move,  state->output, NULL);
- gegl_node_connect_from ( state->multiply, "aux",  state->idref2, "output");
- gegl_node_connect_from ( state->dst, "aux",  state->idref, "output");
+ gegl_node_connect ( state->multiply, "aux",  state->idref2, "output");
+ gegl_node_connect ( state->dst, "aux",  state->idref, "output");
   gegl_node_link_many ( state->idref, state->median, state->idref2, NULL);
         break;
     case BEVEL_OUTLINE_ORIGINAL_COLOR:
   gegl_node_link_many ( state->input, state->idref, state->white, state->dst,   state->ssg,  state->custombevel,  state->multiply, state->move, state->lightness,  state->output, NULL);
- gegl_node_connect_from ( state->multiply, "aux",  state->idref2, "output");
- gegl_node_connect_from ( state->dst, "aux",  state->idref, "output");
+ gegl_node_connect ( state->multiply, "aux",  state->idref2, "output");
+ gegl_node_connect ( state->dst, "aux",  state->idref, "output");
   gegl_node_link_many ( state->idref, state->median, state->idref2, NULL);
     }
   }
