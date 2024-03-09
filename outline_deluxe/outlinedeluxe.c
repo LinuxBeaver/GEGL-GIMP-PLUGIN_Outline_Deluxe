@@ -189,7 +189,7 @@ static void attach (GeglOperation *operation)
                                    "value", outlinememe_color, NULL);
 
  state->ssg   = gegl_node_new_child (gegl,
-                                  "operation", "gegl:ssg",
+                                  "operation", "lb:ssg",
                                   NULL);
 
  state->idref2   = gegl_node_new_child (gegl,
@@ -205,7 +205,7 @@ static void attach (GeglOperation *operation)
                                   NULL);
 
  state->custombevel   = gegl_node_new_child (gegl,
-                                  "operation", "gegl:custom-bevel",
+                                  "operation", "lb:custom-bevel",
                                   NULL);
 
  state->multiply   = gegl_node_new_child (gegl,
