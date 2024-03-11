@@ -54,7 +54,7 @@ enum_value   (CUSTOMBEVEL_SHOW_ADVANCE, "advancecustombevel", N_("Advance Slider
 
 
 #define GEGLGRAPHSTRING2 \
-"  id=0 dst-out aux=[ ref=0  component-extract component=alpha   levels in-low=0.15  color-to-alpha opacity-threshold=0.6 ] median-blur radius=0    "\
+"  id=0 dst-out aux=[ ref=0  component-extract component=alpha   levels in-low=0.15  color-to-alpha opacity-threshold=0.6 ] median-blur radius=0 abyss-policy=none    "\
 
 
 enum_start (gegl_blend_mode_typecbevel)
@@ -293,32 +293,32 @@ switch (o->switchbevel) {
     case CLASSIC:
   gegl_node_link_many (state->input,  state->darkbevel, state->nop, state->mcol, state->median, state->box, state->gaussian, usethis, state->opacity, state->mcb, state->sharpen, state->desat, state->multiply2,  state->lightness, state->killpuff, state->repairgeglgraph, state->output,  NULL);
 /* Blend emboss with one of many blend modes*/
-  gegl_node_connect_from (usethis, "aux", state->emboss, "output");
+  gegl_node_connect (usethis, "aux", state->emboss, "output");
   gegl_node_link_many (state->gaussian, state->emboss,  NULL);
 /* Blend color overlay with multiply*/
-  gegl_node_connect_from (state->mcol, "aux", state->col, "output");
+  gegl_node_connect (state->mcol, "aux", state->col, "output");
   gegl_node_link_many (state->nop, state->col,  NULL);
 /* Blend multiply with image file overlay*/
-  gegl_node_connect_from (state->multiply2, "aux", state->imagefileoverlay, "output");
+  gegl_node_connect (state->multiply2, "aux", state->imagefileoverlay, "output");
         break;
     case NO_COLOR_MODERN:
   gegl_node_link_many (state->input, state->bookmark,  state->white, state->multiplybookmark, state->darkbevel, state->median, state->box, state->gaussian, usethis, state->opacity, state->mcb, state->sharpen, state->desat, state->multiply2,  state->lightness,  state->repairgeglgraph, state->killpuff2, state->output,  NULL);
 /* Blend emboss with one of many blend modes*/
-  gegl_node_connect_from (usethis, "aux", state->emboss, "output");
+  gegl_node_connect (usethis, "aux", state->emboss, "output");
   gegl_node_link_many (state->gaussian, state->emboss,  NULL);
 /* Blend multiply with image file overlay*/
-  gegl_node_connect_from (state->multiply2, "aux", state->imagefileoverlay, "output");
+  gegl_node_connect (state->multiply2, "aux", state->imagefileoverlay, "output");
 /* Blend multiply with original image color*/
-  gegl_node_connect_from (state->multiplybookmark, "aux", state->medianbookmark, "output");
+  gegl_node_connect (state->multiplybookmark, "aux", state->medianbookmark, "output");
   gegl_node_link_many (state->bookmark, state->medianbookmark,  NULL);
         break;
     case COLOR_MODERN:
   gegl_node_link_many (state->input, state->col,  state->darkbevel, state->median, state->box, state->gaussian, usethis, state->opacity, state->mcb, state->sharpen, state->desat, state->multiply2,  state->lightness, state->repairgeglgraph, state->killpuff2,  state->output,  NULL);
 /* Blend emboss with one of many blend modes*/
-  gegl_node_connect_from (usethis, "aux", state->emboss, "output");
+  gegl_node_connect (usethis, "aux", state->emboss, "output");
   gegl_node_link_many (state->gaussian, state->emboss,  NULL);
 /* Blend multiply with image file overlay*/
-  gegl_node_connect_from (state->multiply2, "aux", state->imagefileoverlay, "output");
+  gegl_node_connect (state->multiply2, "aux", state->imagefileoverlay, "output");
 }
  }
 
@@ -352,12 +352,12 @@ GeglProperties *o = GEGL_PROPERTIES (operation);
 
 
   medianbookmark    = gegl_node_new_child (gegl,
-                                  "operation", "gegl:median-blur", "radius", 30, "alpha-percentile", 100.0,
+                                  "operation", "gegl:median-blur", "radius", 30, "alpha-percentile", 100.0,     "abyss-policy",     GEGL_ABYSS_NONE,
                                   NULL);
 
 
   median    = gegl_node_new_child (gegl,
-                                  "operation", "gegl:median-blur",
+                                  "operation", "gegl:median-blur",     "abyss-policy",     GEGL_ABYSS_NONE,
                                   NULL);
 
  /*This is a GEGL Graph string to kill transparency on edges*/
@@ -386,7 +386,7 @@ GeglProperties *o = GEGL_PROPERTIES (operation);
  /*filter=1 is codename of gaussian-blur filter=fir. There is no other way of calling Gaussian Blur's fir mode TMK. FIR mode displays less edge puff.*/
 
   gaussian    = gegl_node_new_child (gegl,
-                                  "operation", "gegl:gaussian-blur",
+                                  "operation", "gegl:gaussian-blur",  "clip-extent", FALSE, "abyss-policy", 0,
    "filter", 1,
                                   NULL);
 
@@ -499,7 +499,7 @@ A median blur at zero radius is confirmed to make no changes to an image.
 This option resets gegl:opacity's value to prevent a known bug where
 plugins like clay, glossy balloon and custom bevel glitch out when
 drop shadow is applied in a gegl graph below them.*/
-   repairgeglgraph      = gegl_node_new_child (gegl, "operation", "gegl:median-blur",
+   repairgeglgraph      = gegl_node_new_child (gegl, "operation", "gegl:median-blur",     "abyss-policy",     GEGL_ABYSS_NONE,
                                          "radius",       0,
                                          NULL);
 
@@ -579,7 +579,7 @@ GeglOperationMetaClass *operation_meta_class = GEGL_OPERATION_META_CLASS (klass)
   operation_meta_class->update = update_graph;
 
   gegl_operation_class_set_keys (operation_class,
-    "name",        "gegl:custom-bevel",
+    "name",        "lb:custom-bevel",
     "title",       _("Custom Bevel"),
     "categories",  "Artistic",
     "reference-hash", "h3do6akv00vyeefjf25sb2ac",
