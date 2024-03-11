@@ -222,7 +222,7 @@ static void attach (GeglOperation *operation)
                                   NULL);
 
  state->median   = gegl_node_new_child (gegl,
-                                  "operation", "gegl:median-blur", "radius", 100, "alpha-percentile", 100.0,
+                                  "operation", "gegl:median-blur", "radius", 100, "alpha-percentile", 100.0,  "abyss-policy",     GEGL_ABYSS_NONE,
                                   NULL);
 
   gegl_operation_meta_redirect (operation, "color",  state->ssg, "colorssg");
