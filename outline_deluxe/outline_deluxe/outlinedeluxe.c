@@ -71,6 +71,15 @@ property_int  (radius, _("Make the Outline go inward or outward"), 1)
   ui_range    (0, 2)
   description (_("Instruct the outline to go inward or outward."))
 
+property_double (blurstroke, _("Blur radius of Outline"), 0.0)
+  value_range   (0, 1000.0)
+  ui_range      (0, 10.0)
+  ui_digits     (0)
+  ui_steps      (1, 5)
+  ui_gamma      (1.5)
+  ui_meta       ("unit", "pixel-distance")
+  description (_("The distance of the shadow glow effect"))
+
 property_double (opacity, _("Opacity of Outline"), 2)
   value_range   (1.0, 4.0)
   ui_steps      (1.0, 4.0)
@@ -227,6 +236,7 @@ static void attach (GeglOperation *operation)
 
   gegl_operation_meta_redirect (operation, "color",  state->ssg, "colorssg");
   gegl_operation_meta_redirect (operation, "opacity",  state->ssg, "opacityssg");
+  gegl_operation_meta_redirect (operation, "blurstroke",  state->ssg, "blurstroke");
   gegl_operation_meta_redirect (operation, "stroke",  state->ssg, "stroke");
   gegl_operation_meta_redirect (operation, "x",  state->move, "x");
   gegl_operation_meta_redirect (operation, "y",  state->move, "y");
