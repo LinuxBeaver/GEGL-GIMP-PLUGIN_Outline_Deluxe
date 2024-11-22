@@ -125,6 +125,12 @@ property_double (bevelelevation, _("Elevation of Bevel"), 25.0)
     ui_meta ("unit", "degree")
 ui_meta ("visible", "!mode {outline, ocoutline,  }" )
 
+property_int (beveldepth, _("Depth of Bevel"), 24)
+    description (_("Emboss depth of bevel"))
+    value_range (1, 100)
+    ui_meta ("unit", "degree")
+ui_meta ("visible", "!mode {outline, ocoutline,  }" )
+
 property_double (bevelgaus, _("Internal Gaussian Blur of for a normal bevel"), 2)
    description (_("Makes a normal bevel by calling an internal gaussian blur."))
    value_range (0.0, 9.0)
@@ -244,6 +250,7 @@ static void attach (GeglOperation *operation)
   gegl_operation_meta_redirect (operation, "radius",  state->ssg, "radius");
   gegl_operation_meta_redirect (operation, "bevelbox",  state->custombevel, "box");
   gegl_operation_meta_redirect (operation, "bevelgaus",  state->custombevel, "gaus");
+  gegl_operation_meta_redirect (operation, "beveldepth",  state->custombevel, "depth");
   gegl_operation_meta_redirect (operation, "bevelelevation",  state->custombevel, "elevation");
   gegl_operation_meta_redirect (operation, "bevelazimuth",  state->custombevel, "azimuth");
   gegl_operation_meta_redirect (operation, "bevelblendmode",  state->custombevel, "blendmode");
