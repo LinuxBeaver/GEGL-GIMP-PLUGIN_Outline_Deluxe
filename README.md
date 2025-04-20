@@ -24,11 +24,11 @@ This plugin ships with two other plugins of mine needed for it to work. Said plu
  
 ### Linux 
 
- /home/(USERNAME)/.local/share/gegl-0.4/plug-ins
+`~/.local/share/gegl-0.4/plug-ins`
  
 ### Linux (Flatpak includes Chromebook)
 
- /home/(USERNAME)/.var/app/org.gimp.GIMP/data/gegl-0.4/plug-ins
+`~/.var/app/org.gimp.GIMP/data/gegl-0.4/plug-ins`
 
 ## After putting binaries in the correct Location
 
