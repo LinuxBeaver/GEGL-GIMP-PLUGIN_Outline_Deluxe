@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with GEGL; if not, see <https://www.gnu.org/licenses/>.
  *
- * Credit to Øvind Kolas (pippin) for major GEGL contributions
+ * Credit to Øyvind Kolås (pippin) for major GEGL contributions
  * 2024 Beaver (GEGL Outline Deluxe, Intended for CMYK Student's build to make outline bevels easier to chain in 'layer effects'. )
  */
 
