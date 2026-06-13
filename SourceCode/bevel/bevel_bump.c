@@ -74,14 +74,14 @@ mean-curvature-blur iterations=2
 property_enum (type, _("Type of Bevel"),
     GeglBlendModeTypebeavbevel, gegl_blend_mode_typebeavbevel,
     GEGL_BEVEL_NORMAL)
-    description (_("Types of bevels present. Sharp (Chamfer) Bevel mode requires the user to change the depth angle to less then 70 or above 115 for it to work proper."))
+    description (_("Types of bevelꞌs present. Sharp (Chamfer) Bevel mode requires the user to change the depth angle to less then 70 or above 115 for it to work proper."))
 
 property_double (radius1, _("Radius Normal Bevel"), 7.0)
   value_range (0.5, 40.0)
   ui_range (1.0, 9.0)
   ui_gamma (1.5)
   ui_steps      (0.1, 0.50)
-ui_meta ("visible", "!type {sharpbevel, stackedembossbevel, covebevel}" )
+ui_meta ("visible", "!type {sharpbevel, stackedembossbevel, covebevel, sharpbeveltwo}" )
     description (_("Make a normal bevel bump map using Gaussian Blur"))
 
 property_double (radius1special, _("Radius Bevel (inside)"), 2.0)
@@ -97,7 +97,7 @@ property_int (radius2, _("Radius Box Bevel"), 0)
    value_range (0, 10.0)
    ui_range    (0, 9.0)
    ui_gamma   (1.5)
-ui_meta ("visible", "!type {sharpbevel, stackedembossbevel, covebevel}" )
+ui_meta ("visible", "!type {sharpbevel, stackedembossbevel, covebevel, sharpbeveltwo}" )
 
 
 
@@ -109,7 +109,7 @@ property_int (radius2cove, _("Radius Box Bevel (inside stacked)"), 11)
 ui_meta ("visible", "type {covebevel, stackedembossbevel}" )
 
 
-property_double (bevel1, _("Depth Angle"), 45.0)
+property_double (bevel1, _("Elevation"), 45.0)
     description (_("Elevation angle (degrees)"))
     value_range (0, 180)
     ui_meta ("unit", "degree")
@@ -122,14 +122,14 @@ property_int (bevel2, _("Depth"), 40)
     value_range (1, 100)
 ui_meta ("visible", "!type {covebevel, stackedembossbevel}" )
 
-property_double (bevel1special, _("Depth Angle"), 60.0)
+property_double (bevel1special, _("Elevation (inside)"), 60.0)
     description (_("Elevation angle (degrees)"))
     value_range (50, 90)
     ui_meta ("unit", "degree")
   ui_steps      (0.1, 1.50)
 ui_meta ("visible", "type {covebevel}" )
 
-property_double (bevel1special2, _("Depth Angle (stacked)"), 140.0)
+property_double (bevel1special2, _("Elevation (stacked)"), 140.0)
     description (_("Elevation angle (degrees)"))
     value_range (20, 140)
     ui_meta ("unit", "degree")
@@ -169,16 +169,16 @@ property_double (azimuthspecial, _("Rotate Lighting (inside)"), 40.0)
   ui_steps      (0.1, 2.00)
 ui_meta ("visible", "type {covebevel}" )
 
-property_double (hyperopacity, _("Hyper Opacity of Stacked Embosses"), 1.5)
-    description (_("This"))
-  value_range   (1.5, 3.0)
+property_double (hyperopacity, _("Hyper Opacity of Stacked Embosses"), 1.0)
+    description (_("The hyper opacity of stacked emboss"))
+  value_range   (1.0, 3.0)
   ui_steps      (0.01, 0.50)
 ui_meta ("visible", "type {stackedembossbevel}" )
-
+    ui_meta     ("role", "output-extent")
 
 
 property_double (slideupblack, _("Black Bevel/Image Bevel mode."), 0.00)
-    description (_("This slider allows bevel to works on black colored bevels; but the user must still manually select blend modes like Grain Merge and Hardlight that are known to work with very dark Bevels. This also allows bevel to be applied on image file overlays without conforming to an image's details."))
+    description (_("This slider allows bevel to works on black colored bevels; but the user must still manually select blend modes like Grain Merge and Hardlight that are known to work with very dark Bevels. This also allows bevel to be applied on image file overlays without conforming to an imageꞌs details."))
   value_range   (0.00, 1.0)
   ui_steps      (0.1, 0.50)
 
@@ -187,7 +187,7 @@ property_double (slideupblack, _("Black Bevel/Image Bevel mode."), 0.00)
 property_enum (metric, _("Distance Map Setting"),
                GeglDistanceMetric, gegl_distance_metric, GEGL_DISTANCE_METRIC_CHEBYSHEV)
     description (_("Distance Map has three settings that alter the structure of the sharp (chamfer) bevel. Chebyshev is the default; due to it being the best. But try the other two. "))
-ui_meta ("visible", "type {sharpbevel}" )
+ui_meta ("visible", "type {sharpbevel, sharpbeveltwo}" )
 
 property_double (smooth, _("Smooth Roughness "), 1.5)
   description(_("Bilateral blur smoothes roughness  of the sharp chamfer bevel but is resource intensive at high values."))
@@ -197,7 +197,23 @@ property_double (smooth, _("Smooth Roughness "), 1.5)
   ui_steps      (0.1, 0.50)
 ui_meta ("visible", "type {sharpbevel}" )
 
+property_int (smoothchamfer, _("Smooth"), 8)
+  description(_("Smooth roughness to make the chamfer softer"))
+  value_range   (0, 30)
+  ui_range      (0, 30)
+ui_meta ("visible", "type {sharpbeveltwo}" )
 
+property_double (flatsurface, _("Flat surface"), 1.0)
+  description(_("Flat Surface of the sharp chamfer, slider on high values will concede to inside. So keep inside at 1.0 if this is active"))
+  value_range   (1.0, 6.0)
+  ui_range      (1.0, 5.0)
+ui_meta ("visible", "type {sharpbeveltwo}" )
+
+property_double (inside, _("Inside"), 1.0)
+  description(_("Transition the sharp chamfer to apply on the inside of the shape, slider on high values will negate flat surface. So keep flat surface at 1.0 if this is active"))
+  value_range   (1.0, 6.0)
+  ui_range      (1.0, 5.0)
+ui_meta ("visible", "type {sharpbeveltwo}" )
 
 enum_start (gegl_blend_mode_typebeavbevel)
   enum_value (GEGL_BEVEL_NORMAL,      "normalbevel",
@@ -210,6 +226,8 @@ enum_start (gegl_blend_mode_typebeavbevel)
               N_("Inside Bevel"))
   enum_value (GEGL_BEVEL_EMBOSS_STACK_MODE,      "stackedembossbevel",
               N_("Emboss Stack Bevel"))
+  enum_value (GEGL_BEVEL_CHAMFER_ENHANCED,      "sharpbeveltwo",
+              N_("Sharp Chamfer Bevel Revised"))
 enum_end (GeglBlendModeTypebeavbevel)
 
 
@@ -217,7 +235,7 @@ enum_end (GeglBlendModeTypebeavbevel)
 property_enum (embossamount, _("Amount of Stacked Embosses on the Bevel:"),
     stackemboss, stack_emboss_fun,
     FIVE_EMBOSSES)
-    description (_("The amount of extra embosses present in 'stacked embosses' bevel mode. Five is default, three is minimum."))
+    description (_("The amount of extra embosses present in ꞌstacked embossesꞌ bevel mode. Five is default, three is minimum."))
 ui_meta ("visible", "type {stackedembossbevel}" )
 
 enum_start (stack_emboss_fun)
@@ -268,6 +286,11 @@ typedef struct
   GeglNode *hyperopacity;
   GeglNode *median2;
   GeglNode *bilateral;
+  GeglNode *smoothchamfer;
+  GeglNode *idrefsc;
+  GeglNode *srcin;
+  GeglNode *flat;
+  GeglNode *inside;
   GeglNode *output;
 } State;
 
@@ -405,6 +428,24 @@ static void attach (GeglOperation *operation)
                                   "operation", "gegl:median-blur", "radius", 2, "alpha-percentile", 100.0, "neighborhood", 0, "abyss-policy",     GEGL_ABYSS_NONE,
                                   NULL);
 
+   state->smoothchamfer  = gegl_node_new_child (gegl,
+                                  "operation", "gegl:mean-curvature-blur", 
+                                  NULL);
+
+   state->idrefsc  = gegl_node_new_child (gegl,
+                                  "operation", "gegl:nop",
+                                  NULL);
+   state->srcin  = gegl_node_new_child (gegl,
+                                  "operation", "gegl:src-in",
+                                  NULL);
+   state->flat  = gegl_node_new_child (gegl,
+                                  "operation", "gegl:multiply",
+                                  NULL);
+
+   state->inside  = gegl_node_new_child (gegl,
+                                  "operation", "gegl:gamma",
+                                  NULL);
+
 
   gegl_operation_meta_redirect (operation, "radius1", state->blur, "std-dev-x");
   gegl_operation_meta_redirect (operation, "radius1", state->blur, "std-dev-y");
@@ -424,6 +465,9 @@ static void attach (GeglOperation *operation)
   gegl_operation_meta_redirect (operation, "smooth", state->bilateral, "blur-radius");
   gegl_operation_meta_redirect (operation, "metric", state->dt, "metric");
   gegl_operation_meta_redirect (operation, "hyperopacity", state->hyperopacity, "value");
+  gegl_operation_meta_redirect (operation, "smoothchamfer", state->smoothchamfer, "iterations");
+  gegl_operation_meta_redirect (operation, "flatsurface", state->flat, "value");
+  gegl_operation_meta_redirect (operation, "inside", state->inside, "value");
 
 }
 
@@ -459,6 +503,11 @@ switch (o->type) {
         break;
     case GEGL_BEVEL_EMBOSS_STACK_MODE:
     gegl_node_link_many (state->input, state->startmedian, state->slideupblack, state->blursb, state->boxblurcove,  state->emgsb,  state->invert, embosschoice, state->hyperopacity, state->mcb, state->output, NULL);
+        break;
+    case GEGL_BEVEL_CHAMFER_ENHANCED:
+    gegl_node_link_many (state->input, state->slideupblack, state->median, state->idrefsc, state->srcin, state->smoothchamfer, state->inside, state->flat, state->fix,  state->emb, state->lowersharpopacity, state->output, NULL);
+    gegl_node_connect (state->srcin, "aux", state->dt, "output");
+    gegl_node_link_many (state->idrefsc, state->dt, NULL);
     }
 }
 
@@ -477,7 +526,7 @@ GeglOperationMetaClass *operation_meta_class = GEGL_OPERATION_META_CLASS (klass)
     "name",        "lb:bevel",
     "title",       _("Bevel (to blend)"),
     "reference-hash", "45ed5656a28a512570f0f25sb2ac",
-    "description", _("Creates a map of a bevel for the user to blend it with GIMP's blend modes"
+    "description", _("Creates a map of a bevel for the user to blend it with GIMPꞌs blend modes"
                      ""),
     "gimp:menu-path", "<Image>/Filters/Text Styling",
     "gimp:menu-label", _("Bevel (to blend)..."),

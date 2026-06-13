@@ -14,7 +14,7 @@
  * License along with GEGL; if not, see <https://www.gnu.org/licenses/>.
  *
  * Credit to Øyvind Kolås (pippin) for major GEGL contributions
- * 2024 Beaver (GEGL Outline Deluxe, Intended for CMYK Student's build to make outline bevels easier to chain in 'layer effects'. )
+ * 2024 Beaver (GEGL Outline Deluxe, Intended for CMYK Studentꞌs build to make outline bevels easier to chain in ꞌlayer effectsꞌ. )
  */
 
 #include "config.h"
@@ -22,7 +22,7 @@
 
 #ifdef GEGL_PROPERTIES
 /*
-Recreation of this plugin's graph
+Recreation of this pluginꞌs graph
 
 
 color-overlay value=white
@@ -146,7 +146,7 @@ property_int (bevelbox, _("Internal Box Blur for a box bevel"), 3)
 ui_meta ("visible", "!mode {outline, ocoutline, metal, anything  }" )
 
 property_int (lightnessspecial, _("Lightness for Bevel by Original Color "), 0)
-   description(_("Bevel by original color is a special option included in this filter so shapes made with Gimp's brush tool retain their original color when being transformed into outlines. Coincidentally  multicolor images may be 'too dark' when beveled. this makes them more appropriate. "))
+   description(_("Bevel by original color is a special option included in this filter so shapes made with Gimpꞌs brush tool retain their original color when being transformed into outlines. Coincidentally  multicolor images may be ꞌtoo darkꞌ when beveled. this makes them more appropriate. "))
    value_range (0, 10)
    ui_range    (0, 10)
 ui_meta ("visible", "!mode {outline, ocoutline, bevel, metal, anything,  }" )
